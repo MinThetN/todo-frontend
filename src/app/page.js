@@ -1,6 +1,7 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TaskForm from '../components/TaskForm';
+import TaskList from '../components/TaskList';
 
 export default function Home() {
   
@@ -8,6 +9,7 @@ export default function Home() {
         <div className='flex flex-col items-center'>
             <Header />
             <TaskForm />
+            <TaskList />
             <Footer />
         </div>
     );
