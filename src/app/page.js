@@ -1,37 +1,55 @@
+// Home.js (page.js)
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
 
 export default function Home() {
-    const [currentTask, setCurrentTask] = useState(null); // State to hold the task for editing
+    const [tasks, setTasks] = useState([]);
+    const [currentTask, setCurrentTask] = useState(null);
 
-    // Function to handle setting a task for editing
+    useEffect(() => {
+        fetchTasks();
+    }, []);
+
+    const fetchTasks = async () => {
+        const response = await axios.get('http://localhost:8080/tasks');
+        setTasks(response.data);
+    };
+
     const handleEditTask = (task) => {
         setCurrentTask(task);
     };
 
-    // Function to handle saving a task (new or edited)
-    const handleSaveTask = (savedTask) => {
-        // Logic to refresh the task list or update the state
-        console.log('Task saved:', savedTask);
-        setCurrentTask(null); // Clear the current task after saving
+    const handleSaveTask = async (task) => {
+        if (task.id) {
+            await axios.put(`http://localhost:8080/tasks/${task.id}`, task);
+        } else {
+            await axios.post('http://localhost:8080/tasks', task);
+        }
+        fetchTasks();
+        setCurrentTask(null);
     };
 
-    // Function to handle the request to add a new task
-    const handleAddNewTask = () => {
-        setCurrentTask({ title: '', description: '', completed: false }); // Clear any selected task
+    const handleDeleteTask = async (id) => {
+        await axios.delete(`http://localhost:8080/tasks/${id}`);
+        fetchTasks();
+    };
+
+    const handleToggleCompleted = async (task) => {
+        const updatedTask = { ...task, completed: !task.completed };
+        await axios.put(`http://localhost:8080/tasks/${task.id}`, updatedTask);
+        fetchTasks();
     };
 
     return (
         <div className='flex flex-col items-center'>
             <Header />
-            {/* Pass the currentTask and onSave function to TaskForm */}
-            <TaskForm task={currentTask} onSave={handleSaveTask} onAddNew={handleAddNewTask} />
-            {/* Pass the onEdit function to TaskList */}
-            <TaskList onEdit={handleEditTask} />
+            <TaskForm task={currentTask} onSave={handleSaveTask} />
+            <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask} onToggleCompleted={handleToggleCompleted} />
             <Footer />
         </div>
     );

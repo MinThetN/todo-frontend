@@ -10,6 +10,9 @@ function TaskForm({ task, onSave }) {
         if (task) {
             setTitle(task.title);
             setDescription(task.description);
+        } else {
+            setTitle('');
+            setDescription('');
         }
     }, [task]);
 
@@ -18,19 +21,16 @@ function TaskForm({ task, onSave }) {
         const taskData = {
             title,
             description,
-            completed: false
+            completed: task ? task.completed : false
         };
         try {
             let response;
-            if (task) {
+            if (task && task.id) {
                 response = await axios.put(`http://localhost:8080/tasks/${task.id}`, taskData);
             } else {
                 response = await axios.post('http://localhost:8080/tasks', taskData);
             }
-            console.log('Task saved:', response.data);
-            onSave(response.data);
-            setTitle('');
-            setDescription('');
+            onSave(response.data);  // Call onSave to update the task list in the parent component
         } catch (error) {
             console.error('Error saving task:', error);
         }
