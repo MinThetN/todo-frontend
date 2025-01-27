@@ -1,29 +1,43 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function TaskForm() {
+function TaskForm({ task, onSave }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    useEffect(() => {
+        if (task) {
+            setTitle(task.title);
+            setDescription(task.description);
+        }
+    }, [task]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const taskData = {
+            title,
+            description,
+            completed: false
+        };
         try {
-            const response = await axios.post('http://localhost:8080/tasks', {
-                title,
-                description,
-                completed: false
-            });
-            console.log('Task added:', response.data);
+            let response;
+            if (task) {
+                response = await axios.put(`http://localhost:8080/tasks/${task.id}`, taskData);
+            } else {
+                response = await axios.post('http://localhost:8080/tasks', taskData);
+            }
+            console.log('Task saved:', response.data);
+            onSave(response.data);
             setTitle('');
             setDescription('');
         } catch (error) {
-            console.error('Error adding task:', error);
+            console.error('Error saving task:', error);
         }
     };
 
     return (
-        <div className="max-w-lg mx-auto my-10">
+        <div className="max-w-lg mx-auto my-3">
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -53,7 +67,7 @@ function TaskForm() {
                     ></textarea>
                 </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Add Task
+                    {task ? 'Update Task' : 'Add Task'}
                 </button>
             </form>
         </div>
