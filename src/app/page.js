@@ -1,4 +1,3 @@
-// Home.js (page.js)
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
