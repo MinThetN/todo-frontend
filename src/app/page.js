@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
 
@@ -49,7 +48,6 @@ export default function Home() {
             <Header />
             <TaskForm task={currentTask} onSave={handleSaveTask} />
             <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask} onToggleCompleted={handleToggleCompleted} />
-            <Footer />
         </div>
     );
 }
