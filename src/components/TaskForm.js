@@ -37,14 +37,14 @@ function TaskForm({ task, onSave }) {
     };
 
     return (
-        <div className="max-w-lg mx-auto my-3">
+        <div className="w-9/12 my-3">
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div className="mb-4">
+                <div className="mb-4 w-full">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
                         Title
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="title"
                         type="text"
                         placeholder="Enter Task Title"
@@ -58,7 +58,7 @@ function TaskForm({ task, onSave }) {
                         Description
                     </label>
                     <textarea
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                         id="description"
                         placeholder="Task Description"
                         value={description}
@@ -66,7 +66,7 @@ function TaskForm({ task, onSave }) {
                         required
                     ></textarea>
                 </div>
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline">
                     {task ? 'Update Task' : 'Add Task'}
                 </button>
             </form>
