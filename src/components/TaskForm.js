@@ -26,9 +26,9 @@ function TaskForm({ task, onSave }) {
         try {
             let response;
             if (task && task.id) {
-                response = await axios.put(`http://localhost:8080/tasks/${task.id}`, taskData);
+                response = await axios.put(`${process.env.API_BASE_URL}/tasks/${task.id}`, taskData);
             } else {
-                response = await axios.post('http://localhost:8080/tasks', taskData);
+                response = await axios.post(`${process.env.API_BASE_URL}/tasks`, taskData);
             }
             onSave(response.data);
         } catch (error) {
@@ -66,7 +66,7 @@ function TaskForm({ task, onSave }) {
                         required
                     ></textarea>
                 </div>
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline">
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     {task ? 'Update Task' : 'Add Task'}
                 </button>
             </form>

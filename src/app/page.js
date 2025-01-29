@@ -14,9 +14,14 @@ export default function Home() {
     }, []);
 
     const fetchTasks = async () => {
-        const response = await axios.get('http://localhost:8080/tasks');
-        setTasks(response.data);
+        try {
+            const response = await axios.get(`${process.env.API_BASE_URL}/tasks`);
+            setTasks(response.data);
+        } catch (error) {
+            console.error('Failed to fetch tasks:', error);
+        }
     };
+    
 
     const handleEditTask = (task) => {
         setCurrentTask(task);
@@ -24,22 +29,22 @@ export default function Home() {
 
     const handleSaveTask = async (task) => {
         if (task.id) {
-            await axios.put(`http://localhost:8080/tasks/${task.id}`, task);
+            await axios.put(`${process.env.API_BASE_URL}/tasks/${task.id}`, task);
         } else {
-            await axios.post('http://localhost:8080/tasks', task);
+            await axios.post(`${process.env.API_BASE_URL}/tasks`, task);
         }
         fetchTasks();
         setCurrentTask(null);
     };
 
     const handleDeleteTask = async (id) => {
-        await axios.delete(`http://localhost:8080/tasks/${id}`);
+        await axios.delete(`${process.env.API_BASE_URL}/tasks/${id}`);
         fetchTasks();
     };
 
     const handleToggleCompleted = async (task) => {
         const updatedTask = { ...task, completed: !task.completed };
-        await axios.put(`http://localhost:8080/tasks/${task.id}`, updatedTask);
+        await axios.put(`${process.env.API_BASE_URL}/tasks/${task.id}`, updatedTask);
         fetchTasks();
     };
 

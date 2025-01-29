@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    env: {
+      API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,  // Example environment variable
+    },
+    reactStrictMode: true,
+    // Optionally add more Next.js configurations here
+  };
+  
+  export default nextConfig;
