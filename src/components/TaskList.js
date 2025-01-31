@@ -69,8 +69,8 @@ function TaskList({ tasks, onEdit, onDelete, onToggleCompleted }) {
                                     </div>
                                 </td>
                                 <td className="px-2 py-4 border-b border-gray-200 bg-white text-sm sm:px-5">
-                                    <span className={`relative inline-block px-3 py-1 font-sans text-green-700 leading-tight ${task.completed ? 'text-green-500' : 'text-blue-600'}`}>
-                                        {task.completed ? 'Completed' : 'In Progress'}
+                                    <span className={`relative inline-block px-3 py-1 font-semibold text-green-700 leading-tight ${task.completed ? 'text-green-500' : 'text-blue-600'}`}>
+                                        {task.completed ? 'Completed' : 'Pending'}
                                         <span className={`absolute inset-0 ${task.completed ? 'bg-green-300' : 'bg-blue-300'} opacity-25 rounded-full`}></span>
                                     </span>
                                 </td>
