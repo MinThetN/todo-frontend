@@ -76,11 +76,11 @@ function TaskList({ tasks, onEdit, onDelete, onToggleCompleted }) {
                                 </td>
                                 <td className="px-2 py-4 border-b border-gray-200 bg-white text-sm sm:px-5">
                                     <div className="flex flex-col sm:flex-row sm:items-center">
-                                        <button onClick={() => onEdit(task)} className="text-xs bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded-xl mb-2 sm:mb-0 sm:mr-2">
-                                            Edit
+                                        <button onClick={() => onEdit(task)} className="text-xs bg-yellow-400 hover:bg-yellow-600 text-gray-800 py-1 px-2 rounded-xl mb-2 sm:mb-0 sm:mr-2">
+                                            EDIT
                                         </button>
-                                        <button onClick={() => onDelete(task.id)} className="text-xs bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded-xl">
-                                            Delete
+                                        <button onClick={() => onDelete(task.id)} className="text-xs bg-red-600 hover:bg-red-800 text-white py-1 px-2 rounded-xl">
+                                            DELETE
                                         </button>
                                     </div>
                                 </td>
