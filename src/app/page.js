@@ -14,11 +14,17 @@ export default function Home() {
     }, []);
 
     const fetchTasks = async () => {
+        const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL; // Modify based on where it's used
+        const url = `${apiUrl}/tasks`;
+    
+        console.log('Attempting to fetch from:', url); // Debugging output
+    
         try {
-            const response = await axios.get(`${process.env.API_BASE_URL}/tasks`);
-            setTasks(response.data);
+            const response = await axios.get(url);
+            setTasks(response.data); // Assuming setTasks is a state updater from a React hook
         } catch (error) {
             console.error('Failed to fetch tasks:', error);
+            console.log('Error details:', error.response ? error.response.data : error.message); // More detailed error info
         }
     };
     
